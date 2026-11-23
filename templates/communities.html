@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Community Management | Chicago Crime Analytics</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 35px;
+            font-family: Arial, sans-serif;
+            background: #f4f6fa;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        h1 {
+            margin-top: 0;
+            color: #172554;
+        }
+
+        h2 {
+            color: #1e3a8a;
+            margin-top: 25px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+        }
+
+        .flash {
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input {
+            padding: 11px;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #2563eb;
+        }
+
+        button, .action-button {
+            display: inline-block;
+            padding: 11px 19px;
+            border: none;
+            border-radius: 6px;
+            background: #2563eb;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover, .action-button:hover {
+            background: #1d4ed8;
+        }
+
+        .secondary-button {
+            background: #475569;
+        }
+
+        .secondary-button:hover {
+            background: #334155;
+        }
+
+        .delete-button {
+            background: #dc2626;
+        }
+
+        .delete-button:hover {
+            background: #b91c1c;
+        }
+
+        .navigation {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 25px;
+            color: #2563eb;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .record-info {
+            color: #64748b;
+            margin-bottom: 20px;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 850px;
+        }
+
+        th, td {
+            padding: 13px 12px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 14px;
+        }
+
+        th {
+            background: #eff6ff;
+            color: #1e3a8a;
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .table-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .edit-link {
+            color: #2563eb;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .edit-link:hover {
+            text-decoration: underline;
+        }
+
+        .inline-form {
+            display: inline;
+        }
+
+        .inline-form button {
+            padding: 7px 11px;
+        }
+
+        .empty-message {
+            padding: 20px;
+            color: #64748b;
+            text-align: center;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 15px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navigation {
+                flex-direction: column;
+            }
+
+            .navigation a {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+
+    <!-- ================================= -->
+    <!-- DEFAULT VIEW: ADD COMMUNITY -->
+    <!-- ================================= -->
+
+    {% if request.args.get('view') == none %}
+
+        <h1>Community Management</h1>
+
+        <p class="subtitle">
+            Manage Chicago community information and records.
+        </p>
+
+        <h2>Add New Community</h2>
+
+        <form action="{{ url_for('create_community') }}"
+              method="POST">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Community Code</label>
+                    <input type="number"
+                           name="community_code"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Community Name</label>
+                    <input type="text"
+                           name="community_name"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Population</label>
+                    <input type="number"
+                           name="population"
+                           min="0"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Area (Square Miles)</label>
+                    <input type="number"
+                           name="area_sqmile"
+                           step="any"
+                           min="0.000001"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Area (Square Kilometers)</label>
+                    <input type="number"
+                           name="area_sqkm"
+                           step="any"
+                           min="0.000001"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Density per Square Mile</label>
+                    <input type="number"
+                           name="density_per_sqmi"
+                           step="any"
+                           min="0"
+                           required>
+                </div>
+
+                <div class="form-group">
+                    <label>Density per Square Kilometer</label>
+                    <input type="number"
+                           name="density_per_sqkm"
+                           step="any"
+                           min="0"
+                           required>
+                </div>
+
+            </div>
+
+            <br>
+
+            <button type="submit">
+                + Add Community
+            </button>
+
+        </form>
+
+
+        <!-- NAVIGATION BUTTONS -->
+        <div class="navigation">
+
+            <a class="action-button"
+               href="{{ url_for('communities', view='records') }}">
+                Show All Records
+            </a>
+
+            <a class="action-button secondary-button"
+               href="{{ url_for('communities', view='manage') }}">
+                Edit / Delete Records
+            </a>
+
+        </div>
+
+
+    <!-- ================================= -->
+    <!-- READ VIEW: SHOW ALL RECORDS -->
+    <!-- ================================= -->
+
+    {% elif request.args.get('view') == 'records' %}
+
+        <h1>All Community Records</h1>
+
+        <p class="record-info">
+            Total Communities: <strong>{{ communities|length }}</strong>
+        </p>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Community Name</th>
+                        <th>Population</th>
+                        <th>Area (Sq Miles)</th>
+                        <th>Area (Sq Km)</th>
+                        <th>Density (Sq Mile)</th>
+                        <th>Density (Sq Km)</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for community in communities %}
+
+                    <tr>
+                        <td>{{ community.community_code }}</td>
+                        <td>{{ community.community_name }}</td>
+                        <td>{{ "{:,}".format(community.population) }}</td>
+                        <td>{{ community.area_sqmile }}</td>
+                        <td>{{ community.area_sqkm }}</td>
+                        <td>{{ community.density_per_sqmi }}</td>
+                        <td>{{ community.density_per_sqkm }}</td>
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="7" class="empty-message">
+                            No community records found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <a class="back-link"
+           href="{{ url_for('communities') }}">
+            ← Back to Community Management
+        </a>
+
+
+    <!-- ================================= -->
+    <!-- UPDATE / DELETE VIEW -->
+    <!-- ================================= -->
+
+    {% elif request.args.get('view') == 'manage' %}
+
+        <h1>Manage Community Records</h1>
+
+        <p class="record-info">
+            Select a community to edit or delete its information.
+            Total Communities:
+            <strong>{{ communities|length }}</strong>
+        </p>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Community Name</th>
+                        <th>Population</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    {% for community in communities %}
+
+                    <tr>
+
+                        <td>{{ community.community_code }}</td>
+
+                        <td>{{ community.community_name }}</td>
+
+                        <td>
+                            {{ "{:,}".format(community.population) }}
+                        </td>
+
+                        <td>
+
+                            <div class="table-actions">
+
+                                <!-- EDIT -->
+                                <a class="edit-link"
+                                   href="{{ url_for(
+                                       'update_community',
+                                       community_code=community.community_code
+                                   ) }}">
+                                    Edit
+                                </a>
+
+                                <!-- DELETE -->
+                                <form class="inline-form"
+                                      action="{{ url_for(
+                                          'delete_community',
+                                          community_code=community.community_code
+                                      ) }}"
+                                      method="POST"
+                                      onsubmit="return confirm(
+                                          'Are you sure you want to delete this community?'
+                                      );">
+
+                                    <button type="submit"
+                                            class="delete-button">
+                                        Delete
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                    {% else %}
+
+                    <tr>
+                        <td colspan="4" class="empty-message">
+                            No community records found.
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+        <a class="back-link"
+           href="{{ url_for('communities') }}">
+            ← Back to Community Management
+        </a>
+
+    {% endif %}
+
+</div>
+
+</body>
+</html>

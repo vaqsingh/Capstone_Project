@@ -1,0 +1,485 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Analytics Dashboard | Chicago Crime Intelligence</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/dashboard.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="overview">
+
+        <!-- TOPBAR -->
+        <header class="topbar">
+
+            <div class="topbar-left">
+
+                <button class="menu-button"
+                        id="menuButton"
+                        aria-label="Toggle navigation">
+                    ☰
+                </button>
+
+                <div>
+                    <div class="breadcrumb">
+                        Workspace <span>/</span> Analytics
+                    </div>
+
+                    <h1>Crime Analytics Dashboard</h1>
+                </div>
+
+            </div>
+
+            <div class="topbar-right">
+
+                <div class="dataset-status">
+                    <span class="status-dot"></span>
+                    Historical Dataset
+                </div>
+
+                <a href="/" class="home-button">
+                    ← Home
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE CONTENT -->
+        <div class="page-content">
+
+
+
+            <!-- TEMPORAL ANALYSIS -->
+            <section class="analysis-section" id="temporal">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">01 / TIME DIMENSION</span>
+                        <h2>Temporal Crime Analysis</h2>
+                        <p>Explore how crime frequency varies across time.</p>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">01</span>
+                                <h3>Crime Distribution by Hour of Day</h3>
+                                <p>Hourly activity patterns</p>
+                            </div>
+                            <span class="chart-type">BAR CHART</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Crime Distribution_by_Hour_of_Day.png') }}"
+                                alt="Crime distribution by hour of day"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Examine the hours with the highest and
+                                lowest recorded crime frequency.
+                            </p>
+                        </div>
+                    </article>
+
+
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">02</span>
+                                <h3>Crime Frequency by Month and Day</h3>
+                                <p>Monthly and weekly distribution</p>
+                            </div>
+                            <span class="chart-type">HEATMAP</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Crime_Frequency_by_Month_And_Day_of_Week.png') }}"
+                                alt="Crime frequency by month and day of week"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Identify variations in recorded incidents
+                                across months and weekdays.
+                            </p>
+                        </div>
+                    </article>
+
+
+                    <article class="chart-card chart-card-wide">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">03</span>
+                                <h3>Crime Data Correlation Heatmap</h3>
+                                <p>Relationships between numerical variables</p>
+                            </div>
+                            <span class="chart-type">CORRELATION</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Crime_Data_Correlation_Heatmap.png') }}"
+                                alt="Crime data correlation heatmap"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Examine the strength and direction of
+                                relationships between numerical variables.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- CRIME CATEGORIES -->
+            <section class="analysis-section" id="categories">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">02 / CLASSIFICATION</span>
+                        <h2>Crime Categories</h2>
+                        <p>Discover the most frequently recorded crime types.</p>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+
+                    <article class="chart-card chart-card-wide">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">04</span>
+                                <h3>Top 10 Crime Categories</h3>
+                                <p>Category ranking and frequency</p>
+                            </div>
+                            <span class="chart-type">TOP 10</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Top_10_Crime_Categories.png') }}"
+                                alt="Top 10 crime categories"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Examine which crime categories contribute
+                                most to the recorded incidents.
+                            </p>
+                        </div>
+                    </article>
+
+
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">05</span>
+                                <h3>Top 5 Crime Categories</h3>
+                                <p>Most frequent categories</p>
+                            </div>
+                            <span class="chart-type">TOP 5</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Top_5_Crime_Categories.png') }}"
+                                alt="Top five crime categories"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Compare the frequency of the five
+                                leading crime categories.
+                            </p>
+                        </div>
+                    </article>
+
+
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">06</span>
+                                <h3>Top 5 Crime Categories by Percentage</h3>
+                                <p>Relative category contribution</p>
+                            </div>
+                            <span class="chart-type">PERCENTAGE</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Top_5_Crime_Categories-Percentage.png') }}"
+                                alt="Top five crime categories by percentage"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Understand the percentage contribution
+                                of each leading category.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- COMMUNITY AREAS -->
+            <section class="analysis-section" id="community">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">03 / GEOGRAPHIC DIMENSION</span>
+                        <h2>Community Area Analysis</h2>
+                        <p>Explore crime distribution across Chicago communities.</p>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">07</span>
+                                <h3>Crime Count Across Community Areas</h3>
+                                <p>Geographic distribution</p>
+                            </div>
+                            <span class="chart-type">DISTRIBUTION</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Crime_Count_Distribution_Across_Community_Areas.png') }}"
+                                alt="Crime count distribution across community areas"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Examine how recorded crime counts
+                                vary across community areas.
+                            </p>
+                        </div>
+                    </article>
+
+
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">08</span>
+                                <h3>Top 10 Community Areas by Crime Count</h3>
+                                <p>Community area ranking</p>
+                            </div>
+                            <span class="chart-type">TOP 10</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Top_10_Community_Areas_by_Crime_Count.png') }}"
+                                alt="Top ten community areas by crime count"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Identify the community areas with
+                                the highest recorded incident counts.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- ARREST ANALYSIS -->
+            <section class="analysis-section" id="arrests">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">04 / CASE OUTCOMES</span>
+                        <h2>Arrest Analysis</h2>
+                        <p>Explore recorded arrest outcomes in the dataset.</p>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+
+                    <article class="chart-card chart-card-wide">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">09</span>
+                                <h3>Distribution of Arrest vs Non-Arrest</h3>
+                                <p>Recorded case outcomes</p>
+                            </div>
+                            <span class="chart-type">OUTCOME ANALYSIS</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Distribution_Of_Arrest_vs_Non_Arrest.png') }}"
+                                alt="Distribution of arrest versus non-arrest cases"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Compare the proportion of recorded
+                                incidents with and without an arrest.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- YEARLY TRENDS -->
+            <section class="analysis-section" id="trends">
+
+                <div class="section-heading">
+                    <div>
+                        <span class="section-label">05 / HISTORICAL TRENDS</span>
+                        <h2>Yearly Crime Trends</h2>
+                        <p>Examine annual crime and arrest patterns.</p>
+                    </div>
+                </div>
+
+                <div class="chart-grid">
+
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">10</span>
+                                <h3>Crime Trend Over Years</h3>
+                                <p>Annual recorded crime counts</p>
+                            </div>
+                            <span class="chart-type">YEARLY TREND</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Crime_Trend_Over_Years.png') }}"
+                                alt="Crime trend over years"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Study the annual pattern while accounting
+                                for differences in dataset coverage.
+                            </p>
+                        </div>
+                    </article>
+
+
+                    <article class="chart-card">
+                        <div class="chart-header">
+                            <div>
+                                <span class="chart-number">11</span>
+                                <h3>Yearly Crime and Arrest Trends</h3>
+                                <p>Incidents compared with arrests</p>
+                            </div>
+                            <span class="chart-type">COMPARISON</span>
+                        </div>
+
+                        <div class="chart-image">
+                            <img
+                                src="{{ url_for('static', filename='images/Yearly_Crime_and_Arrest_Trends.png') }}"
+                                alt="Yearly crime and arrest trends"
+                                loading="lazy">
+                        </div>
+
+                        <div class="chart-insight">
+                            <strong>ANALYTICAL NOTE</strong>
+                            <p>
+                                Compare annual recorded incidents
+                                with corresponding arrest counts.
+                            </p>
+                        </div>
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- KEY ANALYTICAL INSIGHTS -->
+          
+
+            <!-- FOOTER -->
+            <footer class="dashboard-footer">
+
+                <div>
+                    <strong>CHICAGO CRIME INTELLIGENCE</strong>
+
+                    <p>
+                        Data Analytics | Python Full Stack Capstone
+                    </p>
+                </div>
+
+                <a href="/">Back to Home ↑</a>
+
+            </footer>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- DASHBOARD JAVASCRIPT -->
+<script src="{{ url_for('static', filename='js/dashboard.js') }}" defer></script>
+
+</body>
+</html>

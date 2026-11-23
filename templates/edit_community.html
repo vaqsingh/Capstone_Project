@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Edit Community | Chicago Crime Analytics</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: #f3f6fb;
+            color: #172033;
+            min-height: 100vh;
+            padding: 45px 20px;
+        }
+
+        .page-container {
+            max-width: 900px;
+            margin: auto;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .brand {
+            font-family: 'Manrope', sans-serif;
+            font-size: 19px;
+            font-weight: 800;
+            color: #172554;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: #475569;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            color: #2563eb;
+        }
+
+        .heading {
+            margin-bottom: 25px;
+        }
+
+        .eyebrow {
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 32px;
+            font-weight: 800;
+            color: #172554;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #64748b;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .form-card {
+            background: #ffffff;
+            border: 1px solid #e5eaf2;
+            border-radius: 14px;
+            padding: 32px;
+            box-shadow: 0 8px 30px rgba(15, 23, 42, 0.05);
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .section-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: #2563eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 19px;
+        }
+
+        .section-heading h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 17px;
+            color: #172554;
+        }
+
+        .section-heading p {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 3px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .form-group label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #334155;
+        }
+
+        .form-group input {
+            width: 100%;
+            height: 46px;
+            padding: 0 14px;
+            border: 1px solid #dce3ed;
+            border-radius: 8px;
+            background: #ffffff;
+            color: #172033;
+            font-family: inherit;
+            font-size: 14px;
+            transition: 0.2s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.12);
+        }
+
+        .form-group input[readonly] {
+            background: #f1f5f9;
+            color: #64748b;
+            cursor: not-allowed;
+        }
+
+        .helper-text {
+            font-size: 11px;
+            color: #94a3b8;
+        }
+
+        .divider {
+            border: none;
+            border-top: 1px solid #edf0f5;
+            margin: 28px 0;
+        }
+
+        .flash {
+            padding: 13px 16px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .flash.success {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .flash.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 22px;
+            border-radius: 8px;
+            border: none;
+            font-family: inherit;
+            font-size: 13px;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 22px;
+            color: #94a3b8;
+            font-size: 12px;
+        }
+
+        @media (max-width: 650px) {
+            body {
+                padding: 25px 14px;
+            }
+
+            .form-card {
+                padding: 22px 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 25px;
+            }
+
+            .form-actions {
+                flex-direction: column-reverse;
+            }
+
+            .form-actions .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page-container">
+
+    <!-- TOP NAVIGATION -->
+    <div class="topbar">
+        <div class="brand">
+            CHICAGO CRIME INTELLIGENCE
+        </div>
+
+        <a href="{{ url_for('communities', view='manage') }}"
+           class="back-link">
+            ← Back to Records
+        </a>
+    </div>
+
+
+    <!-- PAGE HEADING -->
+    <div class="heading">
+        <div class="eyebrow">Community Administration</div>
+
+        <h1>Update Community</h1>
+
+        <p class="subtitle">
+            Review and modify the information associated with this Chicago community.
+        </p>
+    </div>
+
+
+    <!-- FLASH MESSAGES -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% for category, message in messages %}
+            <div class="flash {{ category }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endwith %}
+
+
+    <!-- EDIT FORM -->
+    <div class="form-card">
+
+        <div class="section-heading">
+            <div class="section-icon">⌖</div>
+
+            <div>
+                <h2>Community Information</h2>
+                <p>Update the fields below and save your changes.</p>
+            </div>
+        </div>
+
+
+        <form method="POST">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label>Community Code</label>
+
+                    <input type="number"
+                           value="{{ community.community_code }}"
+                           readonly>
+
+                    <span class="helper-text">
+                        Community code cannot be changed.
+                    </span>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Community Name</label>
+
+                    <input type="text"
+                           name="community_name"
+                           value="{{ community.community_name }}"
+                           required>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Population</label>
+
+                    <input type="number"
+                           name="population"
+                           min="0"
+                           value="{{ community.population }}"
+                           required>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Area (Square Miles)</label>
+
+                    <input type="number"
+                           name="area_sqmile"
+                           step="any"
+                           min="0.000001"
+                           value="{{ community.area_sqmile }}"
+                           required>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Area (Square Kilometers)</label>
+
+                    <input type="number"
+                           name="area_sqkm"
+                           step="any"
+                           min="0.000001"
+                           value="{{ community.area_sqkm }}"
+                           required>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Density per Square Mile</label>
+
+                    <input type="number"
+                           name="density_per_sqmi"
+                           step="any"
+                           min="0"
+                           value="{{ community.density_per_sqmi }}"
+                           required>
+                </div>
+
+
+                <div class="form-group">
+                    <label>Density per Square Kilometer</label>
+
+                    <input type="number"
+                           name="density_per_sqkm"
+                           step="any"
+                           min="0"
+                           value="{{ community.density_per_sqkm }}"
+                           required>
+                </div>
+
+            </div>
+
+
+            <hr class="divider">
+
+
+            <!-- FORM BUTTONS -->
+            <div class="form-actions">
+
+                <a href="{{ url_for('communities', view='manage') }}"
+                   class="btn btn-secondary">
+                    Cancel
+                </a>
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Save Changes →
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <div class="footer-note">
+        Chicago Crime Analytics | Community Data Management
+    </div>
+
+</div>
+
+</body>
+</html>
